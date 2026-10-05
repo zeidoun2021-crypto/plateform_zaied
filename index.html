@@ -6456,5 +6456,31 @@ window.addEventListener('click', (e) => {
     console.log('✅ نظام حماية الزوار جاهز');
 })();
 </script>
+	<script>
+// 🛑 إيقاف سكريبت الحماية القديم نهائياً
+(function() {
+    'use strict';
+    
+    // امسح الشريط الذهبي والنافذة كل 100ms
+    setInterval(function() {
+        var banner = document.getElementById('vipBanner');
+        if (banner) banner.remove();
+        
+        var modal = document.getElementById('blockModal');
+        if (modal) modal.remove();
+        
+        document.body.style.paddingTop = '';
+    }, 100);
+    
+    // عطّل MutationObserver القديم (بإخفاء كل التغييرات)
+    var oldObserver = window.MutationObserver;
+    window.MutationObserver = function(callback) {
+        // تجاهل أي محاولة من السكريبت القديم
+        return { observe: function(){}, disconnect: function(){}, takeRecords: function(){ return []; } };
+    };
+    
+    console.log('🛑 سكريبت الحماية القديم موقوف');
+})();
+</script>
 </body>
 </html>
